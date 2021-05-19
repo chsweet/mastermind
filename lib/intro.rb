@@ -1,26 +1,29 @@
-p "Welcome to MASTERMIND!"
-p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
 
-decision = gets.chomp
-# decision = Intro.new
 
 class Intro
 
   attr_reader :decision
 
     def initialize(decision)
-      @decision = []
+      @decision = gets.chomp
     end
 
-    def player_input(decision)
+    def start_game
+      p "Welcome to MASTERMIND!"
+      p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
+      # input = gets.chomp
+
       if @decision == "i"
         p "The objective of the game is to guess the exact positions of the colors in the computer's sequence"
-      elsif @decision == "p"
-        p "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
-        p "What's your guess?"
+        #### add while input = i ask p or q
+      # elsif input == "p"
+      #   p "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
+      #   p "What's your guess?"
            # guess = gets.chomp()
-       elsif @decision == "q"
+       elsif
+       #input == "q"
          p "byeeeeeeee"
+         exit
       end
     end
   end
