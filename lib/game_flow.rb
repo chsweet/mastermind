@@ -1,6 +1,9 @@
 class GameFlow
 
+attr_reader :guess
+
   def initialize
+    @guess = []
   end
 
   def player_guess
@@ -18,36 +21,19 @@ class GameFlow
     #if guess == generated code then end game
   end
 
-  def comparison
-    #does player_guess = code_generator
-  end
-
-  def quit
-  end
-
-  def cheat
-    # p code_generator
-    #options - play again? or quit?
-
-  end
-
-  def feedback
-    #show correct and incorrect characters
-    #ex: ''RRGB' has 3 of the
-    # correct elements with 2 in the correct positions
-    # You've taken 1 guess'
-    #if code != guess_again guess = gets.chomp.downcase
-  end
 
   def input_criteria
     #If guess.length > 4 "you have too much"
     #elsif guess.length < 4 "you are missing something"
     #if input is anything other than rbgy, ie 1234, then do x
-  end
 
-  def end_game
-    #congrats!
-    #options - play again? or quit?
   end
+  #
+  # def winner
+  #   #if guess == true
+  #   p congrats
+  #   if first_guess == false
+  #   #  p guess again? or quit?
+  # end
 
 end
