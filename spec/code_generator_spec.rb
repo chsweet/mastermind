@@ -9,4 +9,12 @@ RSpec.describe CodeGenerator do
 
     expect(code).to be_an_instance_of(CodeGenerator)
   end
+
+  it 'stores a secret code array' do
+    code = CodeGenerator.new
+
+    expect(code.secret_code).to eq([])
+  end
+
+
 end
