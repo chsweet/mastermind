@@ -12,6 +12,12 @@ RSpec.describe Comparison do
 
 
   it 'can assess a guess' do
+    compare = Comparison.new
+    game = GameFlow.new
+    code = CodeGenerator.new
+    game.guess = ['rygy']
+    code.secret_code = ['rygy']
 
+    expect(asses_guess?).to eq true
   end
 end
