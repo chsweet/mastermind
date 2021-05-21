@@ -1,7 +1,4 @@
 require './lib/code_generator'
-require './lib/game_flow'
-require './lib/intro'
-require './lib/mastermind'
 
 RSpec.describe CodeGenerator do
   it 'exists' do
@@ -10,11 +7,13 @@ RSpec.describe CodeGenerator do
     expect(code).to be_an_instance_of(CodeGenerator)
   end
 
-  it 'stores a secret code array' do
+  it 'generates a random secret code' do
     code = CodeGenerator.new
+    secret_code_1 = code.secret_code
+    secret_code_2 = code.secret_code
 
-    expect(code.secret_code).to eq([])
+    expect(secret_code_1).to_not eq(secret_code_2)
+    # expect(code.secret_code.count).to eq(4)
   end
-
 
 end
