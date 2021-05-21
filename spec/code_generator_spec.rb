@@ -16,4 +16,17 @@ RSpec.describe CodeGenerator do
     # expect(code.secret_code.count).to eq(4)
   end
 
+  it 'validates players guess' do
+    code = CodeGenerator.new
+
+    @player_input = "ygy"
+
+    expect(code.player_guess_length).to eq("you are missing a letter")
+
+    # didn't pass
+     # @player_input = "sdghfdk"
+    # expect(code.player_guess_length).to eq("you have too much")
+  end
+
 end
+# expect(code.player_guess_color).to eq("incorrect colors")
