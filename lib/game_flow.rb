@@ -10,12 +10,12 @@ attr_reader :guess
     p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     input = gets.chomp.downcase
 
-    if input == "i"
+    if input == ("i" || "instructions")
       p "The objective of the game is to guess the exact positions of the colors in the computer's sequence"
       ## add while input = i ask p or q
-    elsif input == "p"
+    elsif input == ("p" || "play")
       player_guess
-    elsif input == "q"
+    elsif input == ("q" || "quit")
       p "byeeee"
     end
     ### need to go back and figure out ||
