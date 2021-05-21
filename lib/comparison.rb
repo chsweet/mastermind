@@ -3,14 +3,6 @@ class Comparison
   def initialize
   end
 
-  def assess_guess?
-    if @guess == @secret_code
-      # @game.winner
-    elsif @guess =! @secret_code
-      # player_guess.game_flow
-    end
-  end
-
   def element_correct
 # is it missing any of the elements/colors
   end
