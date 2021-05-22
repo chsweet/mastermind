@@ -1,10 +1,14 @@
+require './lib/code_generator'
+
 class Comparison
 
   def initialize
+    code = CodeGenerator.new
   end
 
   def element_correct
-# is it missing any of the elements/colors
+    # is it missing any of the elements/colors
+
   end
 
   def element_position

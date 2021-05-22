@@ -53,6 +53,9 @@ attr_reader :guess
 
   end
 
+  # guess attempt counter??  store the attmpts in an array
+  # game timer
+
   def quit
   end
   #
