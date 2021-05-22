@@ -1,3 +1,4 @@
+require 'rspec'
 require './lib/code_generator'
 
 RSpec.describe CodeGenerator do
@@ -16,17 +17,25 @@ RSpec.describe CodeGenerator do
     # expect(code.secret_code.count).to eq(4)
   end
 
-  it 'validates players guess' do
+  it 'validates players guess length' do
     code = CodeGenerator.new
 
-    @player_input = "ygy"
+    @player_input = "RRRGBY"
 
-    expect(code.player_guess_length).to eq("you are missing a letter")
+    expect(code.player_guess_length).to eq("you have too much")
 
-    # didn't pass
-     # @player_input = "sdghfdk"
+    #doesn't pass
+    # @player_input = "RRRGBY"
+    #
     # expect(code.player_guess_length).to eq("you have too much")
   end
 
+  it 'validates player cheat option' do
+    code = CodeGenerator.new
+
+    @player_input = 'c'
+    @secret_code = "RGBY"
+
+    expect(code.player_force_quit).to eq("RGBY")
+  end
 end
-# expect(code.player_guess_color).to eq("incorrect colors")
