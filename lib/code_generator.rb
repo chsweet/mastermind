@@ -22,9 +22,10 @@ class CodeGenerator
   end
 
   def player_guess_length
-    if @player_input.to_s.length > 4
-      p "you have too much"
-    elsif @player_input.to_s.length < 4
+
+    if @player_input.length > 4
+      p "you have too many"
+    elsif @player_input.length < 4
       p "you are missing a letter"
     end
   end
