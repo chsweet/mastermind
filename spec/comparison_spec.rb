@@ -11,10 +11,18 @@ RSpec.describe Comparison do
   end
 
 
-  it 'can assess a guess' do
+  it 'asseses elements correct' do
     compare = Comparison.new
     code = CodeGenerator.new
 
-    expect(asses_guess?).to eq true
+    @player_guess = "rrby"
+    @secret_code = "ybbb"
+    @player_guess_split = @player_guess.chars
+    @secret_code_split = @secret_code.chars
+
+
+    expect(compare.elements_correct).to eq (2)
   end
+
+  
 end
