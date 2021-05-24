@@ -24,5 +24,17 @@ RSpec.describe Comparison do
     expect(compare.elements_correct).to eq (2)
   end
 
-  
+  it 'asseses elements in the correct position' do
+    compare = Comparison.new
+    code = CodeGenerator.new
+
+    @player_guess = "rrby"
+    @secret_code = "ybbb"
+    @player_guess_split = @player_guess.chars
+    @secret_code_split = @secret_code.chars
+
+    expect(compare.elements_position).to eq(1)
+  end
+
+
 end
