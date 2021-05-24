@@ -33,6 +33,5 @@ class Comparison
 
 end
 
-#if code != guess_again guess = gets.chomp.downcase
 
 #need to create guess_count method
