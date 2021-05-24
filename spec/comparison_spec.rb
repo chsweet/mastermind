@@ -5,36 +5,32 @@ require './lib/comparison'
 RSpec.describe Comparison do
 
   it 'exists' do
-    compare = Comparison.new
+    comparison = Comparison.new('ybbb', 'rrby', 0)
 
-    expect(compare).to be_an_instance_of(Comparison)
+    expect(comparison).to be_an_instance_of(Comparison)
   end
 
-
   it 'asseses elements correct' do
-    compare = Comparison.new
-    code = CodeGenerator.new
+    comparison = Comparison.new('ybbb', 'rrby', 0)
 
-    @player_guess = "rrby"
-    @secret_code = "ybbb"
-    @player_guess_split = @player_guess.chars
-    @secret_code_split = @secret_code.chars
-
-
-    expect(compare.elements_correct).to eq (2)
+    expect(comparison.elements_correct).to eq (2)
   end
 
   it 'asseses elements in the correct position' do
-    compare = Comparison.new
-    code = CodeGenerator.new
+    comparison = Comparison.new('ybbb', 'rrby', 0)
 
-    @player_guess = "rrby"
-    @secret_code = "ybbb"
-    @player_guess_split = @player_guess.chars
-    @secret_code_split = @secret_code.chars
-
-    expect(compare.elements_position).to eq(1)
+    expect(comparison.elements_position).to eq(1)
   end
 
+  it 'gives feedback' do
+    comparison = Comparison.new('ybbb', 'rrby', 0)
+
+    comparison.elements_correct
+    comparison.elements_position
+
+    expect = "RRBY has 2 of the correct elements with 1 in the correct positions. You've taken 0 guess"
+
+    expect(comparison.feedback).to eq(expect)
+  end
 
 end

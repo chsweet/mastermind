@@ -3,10 +3,10 @@ require './lib/code_generator'
 class GameFlow
 
   def initialize
-    @code = CodeGenerator.new
-    @player_guess = []
-    # @secret_code = @code.secret_code
+    @code = CodeGenerator.secret_code
+    @player_guess = nil
     @game_guess_count = 0
+    @comparison = Comparison.new(@code, nil, nil)
   end
 
   def start_game
@@ -28,72 +28,41 @@ class GameFlow
     p "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
     p "What's your guess?"
     @player_guess = gets.chomp.downcase
-    @game_guess_count += 1
 
-    while @player_guess != @code.secret_code
-      p feedback
+    valid?
+    @game_guess_count += 1
+    @comparison.player_guess = @player_guess
+    @comparison.game_guess_count = @game_guess_count
+
+    while @player_guess != @code
+      p @comparison.feedback
       @game_guess_count += 1
       @player_guess = gets.chomp.downcase
+
+      valid?
+      @comparison.player_guess = @player_guess
+      @comparison.game_guess_count = @game_guess_count
     end
-
+    p 'Congrats!'
   end
-
-  def secret_code
-    @code.secret_code
-  end
-
-  def elements_correct
-    @player_guess_split = @player_guess.chars
-    @secret_code_split = @code.secret_code.chars
-    intersection = @player_guess_split & @secret_code_split
-
-    if !intersection.empty?
-      intersection.size
-    else
-    end
-
-  end
-
-  def elements_position
-    @player_guess_split = @player_guess.chars
-    @secret_code_split = @code.secret_code.chars
-
-    pairs = @player_guess_split.zip(@secret_code_split)
-
-    pairs.count { |guess,code| guess==code }
-  end
-
-  def feedback
-      "#{@player_guess.upcase} has #{elements_correct} of the correct elements with #{elements_position} in the correct positions. You've taken #{@game_guess_count} guess"
-  end
-
 
   def valid?
     if @player_guess == 'c' || @player_guess == 'cheat'
-      p @secret_code
+      p @code
     elsif @player_guess == 'q' || @player_guess == 'quit'
       quit
     elsif @player_guess.length > 4
-      p "you have too many"
+      p "you have too many, guess again"
+      @player_guess = gets.chomp.downcase
     elsif @player_guess.length < 4
       p "you are missing a letter"
+      @player_guess = gets.chomp.downcase
     end
   end
-
-
-  # guess attempt counter??  store the attmpts in an array
-  # game timer
 
   def quit
     p "Thank you for playing!"
     exit
   end
-  #
-  # def winner
-  #   #if guess == true
-  #   p congrats
-  #   if first_guess == false
-  #   #  p guess again? or quit?
-  # end
 
 end
