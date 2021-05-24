@@ -1,8 +1,8 @@
 class CodeGenerator
 
   def initialize
-    @secret_code = []
-    @player_input = []
+    # @secret_code = []
+    # @player_input = []
   end
 
   #Will need to change if beginner, intermidiate, advance
@@ -12,9 +12,7 @@ class CodeGenerator
   end
 
   def player_guess
-    # p "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
-    # p "What's your guess?"
-    @player_input = gets.chomp.downcase
+    @player_guess = gets.chomp.downcase
 
     #I think it may be better to call on the methods in the game flow
     # player_force_quit
@@ -23,17 +21,17 @@ class CodeGenerator
 
   def player_guess_length
 
-    if @player_input.length > 4
+    if @player_guess.length > 4
       p "you have too many"
-    elsif @player_input.length < 4
+    elsif @player_guess.length < 4
       p "you are missing a letter"
     end
   end
 
   def player_force_quit
-    if @player_input == 'c' || @player_input == 'cheat'
+    if @player_guess == 'c' || @player_guess == 'cheat'
       p @secret_code
-    elsif @player_input == 'q' || @player_input == 'quit'
+    elsif @player_guess == 'q' || @player_guess == 'quit'
     end
   end
 

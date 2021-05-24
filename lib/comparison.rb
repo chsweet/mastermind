@@ -1,6 +1,7 @@
 require './lib/code_generator'
 
 class Comparison
+  attr_reader :player_guess, :secret_code
 
   def initialize
     @code = CodeGenerator.new
@@ -32,6 +33,3 @@ class Comparison
   end
 
 end
-
-
-#need to create guess_count method
