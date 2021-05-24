@@ -1,12 +1,10 @@
 require './lib/code_generator'
-require './lib/comparison'
 
 class GameFlow
 
   def initialize
-    @compare = Comparison.new
     @code = CodeGenerator.new
-    # @player_guess = @code.player_guess
+    @player_guess = []
     # @secret_code = @code.secret_code
     @game_guess_count = 0
   end
@@ -22,42 +20,63 @@ class GameFlow
     elsif input == "p" || input == "play"
       play_game
     elsif input == "q" || input == "quit"
-      exit
+      quit
     end
   end
 
   def play_game
     p "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
     p "What's your guess?"
-    @code.player_guess
-    #
-    # if @player_guess == 'q' || @player_guess == 'quit'
-    #   exit
-    # end
+    @player_guess = gets.chomp.downcase
+    @game_guess_count += 1
 
-    while @code.player_guess != @code.secret_code
-      p @compare.feedback
+    while @player_guess != @code.secret_code
+      p feedback
       @game_guess_count += 1
-      @code.player_guess
+      @player_guess = gets.chomp.downcase
     end
 
   end
 
-  # while @player_guess != @secret_code
-  #   p comparison.feedback
-  #   game_guess_count += 1
-  #   @code.player_guess
-  #
-  #
-  # end
+  def secret_code
+    @code.secret_code
+  end
+
+  def elements_correct
+    @player_guess_split = @player_guess.chars
+    @secret_code_split = @code.secret_code.chars
+    intersection = @player_guess_split & @secret_code_split
+
+    if !intersection.empty?
+      intersection.size
+    else
+    end
+
+  end
+
+  def elements_position
+    @player_guess_split = @player_guess.chars
+    @secret_code_split = @code.secret_code.chars
+
+    pairs = @player_guess_split.zip(@secret_code_split)
+
+    pairs.count { |guess,code| guess==code }
+  end
+
+  def feedback
+      "#{@player_guess.upcase} has #{elements_correct} of the correct elements with #{elements_position} in the correct positions. You've taken #{@game_guess_count} guess"
+  end
 
 
-
-  def assess_guess?
-    if @guess == @secret_code
-      # @game.winner
-    elsif @guess =! @secret_code
-      # then it goes and does the thing in the comparison file
+  def valid?
+    if @player_guess == 'c' || @player_guess == 'cheat'
+      p @secret_code
+    elsif @player_guess == 'q' || @player_guess == 'quit'
+      quit
+    elsif @player_guess.length > 4
+      p "you have too many"
+    elsif @player_guess.length < 4
+      p "you are missing a letter"
     end
   end
 
@@ -66,6 +85,8 @@ class GameFlow
   # game timer
 
   def quit
+    p "Thank you for playing!"
+    exit
   end
   #
   # def winner
