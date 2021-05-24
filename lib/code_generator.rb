@@ -12,8 +12,8 @@ class CodeGenerator
   end
 
   def player_guess
-    p "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
-    p "What's your guess?"
+    # p "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
+    # p "What's your guess?"
     @player_input = gets.chomp.downcase
 
     #I think it may be better to call on the methods in the game flow

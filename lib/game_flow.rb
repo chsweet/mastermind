@@ -1,8 +1,12 @@
+require './lib/code_generator'
+require './lib/comparison'
+
 class GameFlow
-attr_reader :guess
 
   def initialize
-    @guess = []
+    @code = CodeGenerator.new
+    @player_guess = @code.player_guess
+    @secret_code = @code.secret_code
   end
 
   def start_game
@@ -10,32 +14,24 @@ attr_reader :guess
     p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     input = gets.chomp.downcase
 
-    if input == ("i" || "instructions")
+    if input == "i" || input == "instructions"
       p "The objective of the game is to guess the exact positions of the colors in the computer's sequence"
       ## add while input = i ask p or q
-    elsif input == ("p" || "play")
-      player_guess
-    elsif input == ("q" || "quit")
+    elsif input == "p" || input == "play"
+      play_game
+    elsif input == "q" || input == "quit"
       p "byeeee"
     end
-    ### need to go back and figure out ||
   end
 
+  while @player_guess != @secret_code
+  end
 
-  def player_guess
+  def play_game
     p "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
     p "What's your guess?"
-    @guess = gets.chomp.downcase
+    @code.player_guess
 
-    #If guess.length > 4 "you have too much"
-    #elsif guess.length < 4 "you are missing something"
-    #elsif guess == 'q' || 'quit'
-    #elsif guess == 'c' || 'cheat' will pull generated code
-    #if code != code generated then give feedback ex: ''RRGB' has 3 of the
-    # correct elements with 2 in the correct positions
-    # You've taken 1 guess'
-    #if code != guess_again
-    #if guess == generated code then end game
   end
 
   def assess_guess?
@@ -46,12 +42,6 @@ attr_reader :guess
     end
   end
 
-  def input_criteria
-    #If guess.length > 4 "you have too much"
-    #elsif guess.length < 4 "you are missing something"
-    #if input is anything other than rbgy, ie 1234, then do x
-
-  end
 
   # guess attempt counter??  store the attmpts in an array
   # game timer
