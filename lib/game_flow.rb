@@ -6,16 +6,19 @@ class GameFlow
     input = gets.chomp.downcase
 
     if input == "i" || input == "instructions"
-      p "The objective of the game is to guess the exact positions of the colors in the computer's sequence"
-      ### more instruction
-      p "Would you like to (p)lay or (q)uit?"
-      input = gets.chomp.downcase
-      if input == "p" || input == "play"
-        play_game
-      elsif input == "q" || input == "quit"
-        quit
-      end
+      instructions
     elsif input == "p" || input == "play"
+      play_game
+    elsif input == "q" || input == "quit"
+      quit
+    end
+  end
+
+  def instructions
+    p "Mastermind is a puzzle game where the objective is to guess a computer generated code with the exact position of four colors (r)ed, (g)reen, (b)lue, and (y)ellow."
+    p "Would you like to (p)lay or (q)uit?"
+    input = gets.chomp.downcase
+    if input == "p" || input == "play"
       play_game
     elsif input == "q" || input == "quit"
       quit
@@ -39,17 +42,17 @@ class GameFlow
     end
       @end_time = Time.now
       winner
-
   end
 
-  # def reset
-  #   @code = CodeGenerator.secret_code
-  #   @player_guess = nil
-  #   @guess_count = 0
-  #   @comparison = Comparison.new(@code, nil, nil)
-  # end
+  def player_input
+    @player_guess = gets.chomp.downcase
+    alternate_player_input
+    @guess_count += 1
+    @comparison.player_guess = @player_guess
+    @comparison.guess_count = @guess_count
+  end
 
-  def valid?
+  def alternate_player_input
     if @player_guess == 'c' || @player_guess == 'cheat'
       p @code
       p "Better luck next time!"
@@ -65,12 +68,10 @@ class GameFlow
     end
   end
 
-  def player_input
-    @player_guess = gets.chomp.downcase
-    valid?
-    @guess_count += 1
-    @comparison.player_guess = @player_guess
-    @comparison.guess_count = @guess_count
+  def game_timer
+    final_time = (@end_time - @start_time).to_i
+    @minutes = final_time / 60
+    @seconds = final_time % 60
   end
 
   def quit
@@ -78,16 +79,11 @@ class GameFlow
     exit
   end
 
-  def game_timer
-    final_time = (@end_time - @start_time).to_i
-    @minutes = final_time / 60
-    @seconds = final_time % 60
-  end
-
   def winner
     game_timer
     p "Congratulations! You guessed the sequence #{@code.upcase} in #{@guess_count} guesses over #{@minutes} minutes, #{@seconds} seconds."
     p "Do you want to (p)lay again or (quit)?"
+
     input = gets.chomp.downcase
 
     if input == "p" || input == "play"
