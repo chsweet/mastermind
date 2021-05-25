@@ -12,7 +12,6 @@ attr_accessor :guess_count, :player_guess
     intersection.empty? ? 0: intersection.size
   end
 
-
   def elements_position
     pairs = player_guess_split.zip(@code_split)
 
