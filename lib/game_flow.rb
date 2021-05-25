@@ -1,15 +1,17 @@
 class GameFlow
 attr_reader :start_time, :end_time
+# :seconds, :minutes
 
   def initialize
     @code = CodeGenerator.secret_code
     @player_guess = nil
     @guess_count = 0
     @comparison = Comparison.new(@code, nil, nil)
+    # @seconds = seconds
+    # @minutes = minutes
   end
 
   def start_game
-    @start_time = Time.now
     p "Welcome to MASTERMIND!"
     p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     input = gets.chomp.downcase
@@ -32,6 +34,7 @@ attr_reader :start_time, :end_time
   end
 
   def play_game
+    @start_time = Time.now
     p "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game or (c)heat to see the answer."
     p "What's your guess?"
     player_input
@@ -73,18 +76,20 @@ attr_reader :start_time, :end_time
     exit
   end
 
-  # def game_timer
-
-  # end
+  def game_timer
+    final_time = (@end_time - @start_time).to_i
+    @minutes = final_time / 60
+    @seconds = final_time % 60
+  end
 
   def winner
-    final_time = (@start_time - @end_time).to_i.divmod(60)
-    p "Congratulations! You guessed the sequence #{@code.upcase} in #{@start_time}"
+    game_timer
+    p "Congratulations! You guessed the sequence #{@code.upcase} in #{@guess_count} guesses over #{@minutes} minutes, #{@seconds} seconds."
     p "Do you want to (p)lay again or (quit)?"
     input = gets.chomp.downcase
 
     if input == "p" || input == "play"
-      play_game
+      start_game
     elsif input == "q" || input == "quit"
       quit
     end

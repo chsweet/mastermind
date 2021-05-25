@@ -30,6 +30,12 @@ RSpec.describe GameFlow do
 
   end
 
+  it 'calculates time' do
+    game = GameFlow.new
+    allow(game).to receive(:Time.now).and_return('74\n')
+    expect(game.game_timer).to eq(74)
+  end
+
   xit 'prints winner response' do
   end
 
