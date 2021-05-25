@@ -21,4 +21,16 @@ RSpec.describe GameFlow do
     allow(game).to receive(:gets).and_return("RRGB\n")
     expect(game.play_game).to eq('Congrats!')
   end
+
+  xit 'validates player guess' do
+
+  end
+
+  xit 'prints quit response' do
+
+  end
+
+  xit 'prints winner response' do
+  end
+
 end

@@ -1,22 +1,29 @@
-require './lib/code_generator'
-
 class GameFlow
+attr_reader :start_time, :end_time
 
   def initialize
     @code = CodeGenerator.secret_code
     @player_guess = nil
-    @game_guess_count = 0
+    @guess_count = 0
     @comparison = Comparison.new(@code, nil, nil)
   end
 
   def start_game
+    @start_time = Time.now
     p "Welcome to MASTERMIND!"
     p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     input = gets.chomp.downcase
 
     if input == "i" || input == "instructions"
       p "The objective of the game is to guess the exact positions of the colors in the computer's sequence"
-      ## add while input = i ask p or q
+      ### more instruction
+      p "Would you like to (p)lay or (q)uit?"
+      input = gets.chomp.downcase
+      if input == "p" || input == "play"
+        play_game
+      elsif input == "q" || input == "quit"
+        quit
+      end
     elsif input == "p" || input == "play"
       play_game
     elsif input == "q" || input == "quit"
@@ -25,44 +32,62 @@ class GameFlow
   end
 
   def play_game
-    p "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
+    p "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game or (c)heat to see the answer."
     p "What's your guess?"
-    @player_guess = gets.chomp.downcase
-
-    valid?
-    @game_guess_count += 1
-    @comparison.player_guess = @player_guess
-    @comparison.game_guess_count = @game_guess_count
+    player_input
 
     while @player_guess != @code
       p @comparison.feedback
-      @game_guess_count += 1
-      @player_guess = gets.chomp.downcase
-
-      valid?
-      @comparison.player_guess = @player_guess
-      @comparison.game_guess_count = @game_guess_count
+      player_input
     end
-    p 'Congrats!'
+      @end_time = Time.now
+      winner
   end
 
   def valid?
     if @player_guess == 'c' || @player_guess == 'cheat'
       p @code
+      p "Better luck next time!"
+      exit
     elsif @player_guess == 'q' || @player_guess == 'quit'
       quit
     elsif @player_guess.length > 4
-      p "you have too many, guess again"
-      @player_guess = gets.chomp.downcase
+      p "You have too many letters, guess again!"
+      player_input
     elsif @player_guess.length < 4
-      p "you are missing a letter"
-      @player_guess = gets.chomp.downcase
+      p "You are missing a letter, guess again!"
+      player_input
     end
+  end
+
+  def player_input
+    @player_guess = gets.chomp.downcase
+    valid?
+    @guess_count += 1
+    @comparison.player_guess = @player_guess
+    @comparison.guess_count = @guess_count
   end
 
   def quit
     p "Thank you for playing!"
     exit
+  end
+
+  # def game_timer
+
+  # end
+
+  def winner
+    final_time = (@start_time - @end_time).to_i.divmod(60)
+    p "Congratulations! You guessed the sequence #{@code.upcase} in #{@start_time}"
+    p "Do you want to (p)lay again or (quit)?"
+    input = gets.chomp.downcase
+
+    if input == "p" || input == "play"
+      play_game
+    elsif input == "q" || input == "quit"
+      quit
+    end
   end
 
 end
