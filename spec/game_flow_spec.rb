@@ -32,5 +32,5 @@ RSpec.describe GameFlow do
 
   xit 'prints winner response' do
   end
-  
+
 end

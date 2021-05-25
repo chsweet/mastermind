@@ -1,4 +1,5 @@
 class GameFlow
+attr_reader :start_time, :end_time
 
   def initialize
     @code = CodeGenerator.secret_code
@@ -8,6 +9,7 @@ class GameFlow
   end
 
   def start_game
+    @start_time = Time.now
     p "Welcome to MASTERMIND!"
     p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     input = gets.chomp.downcase
@@ -15,7 +17,7 @@ class GameFlow
     if input == "i" || input == "instructions"
       p "The objective of the game is to guess the exact positions of the colors in the computer's sequence"
       ### more instruction
-      p "Would you like to (p)lay or (quit)?"
+      p "Would you like to (p)lay or (q)uit?"
       input = gets.chomp.downcase
       if input == "p" || input == "play"
         play_game
@@ -33,21 +35,12 @@ class GameFlow
     p "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game or (c)heat to see the answer."
     p "What's your guess?"
     player_input
-    # @guess_count += 1
-    # @player_guess = gets.chomp.downcase
-    # valid?
-    # @comparison.player_guess = @player_guess
-    # @comparison.guess_count = @guess_count
 
     while @player_guess != @code
       p @comparison.feedback
       player_input
-      # @guess_count += 1
-      # @player_guess = gets.chomp.downcase
-      # valid?
-      # @comparison.player_guess = @player_guess
-      # @comparison.guess_count = @guess_count
     end
+      @end_time = Time.now
       winner
   end
 
@@ -60,17 +53,17 @@ class GameFlow
       quit
     elsif @player_guess.length > 4
       p "You have too many letters, guess again!"
-      @player_guess = gets.chomp.downcase
+      player_input
     elsif @player_guess.length < 4
       p "You are missing a letter, guess again!"
-      @player_guess = gets.chomp.downcase
+      player_input
     end
   end
 
   def player_input
-    @guess_count += 1
     @player_guess = gets.chomp.downcase
     valid?
+    @guess_count += 1
     @comparison.player_guess = @player_guess
     @comparison.guess_count = @guess_count
   end
@@ -81,10 +74,12 @@ class GameFlow
   end
 
   # def game_timer
+
   # end
 
   def winner
-    p "Congratulations! You guessed the sequence #{@code} in NEED TIMER"
+    final_time = (@start_time - @end_time).to_i.divmod(60)
+    p "Congratulations! You guessed the sequence #{@code.upcase} in #{@start_time}"
     p "Do you want to (p)lay again or (quit)?"
     input = gets.chomp.downcase
 
