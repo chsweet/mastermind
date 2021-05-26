@@ -32,7 +32,7 @@ class GameFlow
     @comparison = Comparison.new(@code, nil, nil)
 
     @start_time = Time.now
-    p "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game or (c)heat to see the answer."
+    p "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game or (c)heat to see the answer and start over."
     p "What's your guess?"
     player_input
 
@@ -56,7 +56,7 @@ class GameFlow
     if @player_guess == 'c' || @player_guess == 'cheat'
       p @code
       p "Better luck next time!"
-      exit
+      play_game
     elsif @player_guess == 'q' || @player_guess == 'quit'
       quit
     elsif @player_guess.length > 4
